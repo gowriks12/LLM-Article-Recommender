@@ -2,7 +2,7 @@ import requests
 import pandas as pd
 import json
 def get_recommendations(query, k=20):
-    lambda_function_url = "https://sajjk4n2rwes6bvmdbl7ndu5gi0boklo.lambda-url.us-east-1.on.aws/"
+    lambda_function_url = "your-lambda-url"
     req = {"text": query, "k": k}
     headers = {'Content-Type': 'application/json'}
     response = requests.post(url=lambda_function_url, json=req,headers=headers)
