@@ -1,0 +1,8 @@
+transformers
+torch
+pandas
+numpy
+faiss-cpu
+boto3
+langchain-community
+sentence-transformers
