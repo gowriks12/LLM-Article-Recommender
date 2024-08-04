@@ -23,14 +23,18 @@ def get_latest_faiss_endpoint():
 
 
 def lambda_handler(event, context):
+    print(event)
+    payload = json.loads(event['body'])
+    print(payload)
     # Prepare the payload
-    query = event['text']
-    k = event['k']
-    payload = {
-        'text': query,
-        'k': k
-    }
+    # query = event['text']
+    # k = event['k']
+    # payload = {
+    #     'text': query,
+    #     'k':k
+    # }
     endpoint_name = get_latest_faiss_endpoint()
+    # endpoint_name = "faiss-endpoint-1721913691"
     print(endpoint_name)
     # Call the SageMaker endpoint
     response = sagemaker_runtime.invoke_endpoint(

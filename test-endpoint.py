@@ -1,50 +1,27 @@
-# import boto3
-import sagemaker
+import requests
+import pandas as pd
 import json
+def get_recommendations(query, k=20):
+    lambda_function_url = "https://sajjk4n2rwes6bvmdbl7ndu5gi0boklo.lambda-url.us-east-1.on.aws/"
+    req = {"text": query, "k": k}
+    headers = {'Content-Type': 'application/json'}
+    response = requests.post(url=lambda_function_url, json=req,headers=headers)
+    resp_dict = {}
+    recoms = (response.json())
+    for k in recoms:
+        v = recoms[k]
+        values = v.split('\n')
+        for val in values:
+            if val.split(': ')[0] in resp_dict:
+                resp_dict[val.split(': ')[0]].append(val.split(': ')[1])
+            else:
+                resp_dict[val.split(': ')[0]] = [val.split(': ')[1]]
 
-#
-sagemaker_session = sagemaker.Session()
-#
-# ENDPOINT_NAME='llm-rec-sys-endpoint-1'
-# runtime=boto3.client('runtime.sagemaker', region_name='us-east-1')
-#
-# # instruction = "What is chatGPT"
-#
-# response = runtime.invoke_endpoint(
-#     EndpointName=ENDPOINT_NAME,
-#     ContentType='application/json',
-#     Body=json.dumps({'text': "What is chatGPT"})
-# )
-#
-# result = json.loads(response['Body'].read().decode())
-# print(result)
+    # print("post",resp_dict)
+    recom_df = pd.DataFrame.from_dict(resp_dict)
+    # print(df)
+    # recoms = pd.DataFrame(response.json())
+    # self.df = recoms
+    return recom_df
 
-
-from sagemaker.predictor import Predictor
-sagemaker_vector_store = sagemaker.predictor.Predictor('faiss-endpoint-1721914626')
-assert sagemaker_vector_store.endpoint_context().properties['Status'] == 'InService'
-
-print(sagemaker_vector_store)
-
-payload = json.dumps({
-    "text": "what is a chatGPT",
-    "k": 10,
-})
-
-out = sagemaker_vector_store.predict(
-    payload,
-    initial_args={"ContentType": "application/json", "Accept": "application/json"}
-)
-out = json.loads(out)
-print(out)
-# predictor = Predictor(endpoint_name='pytorch-inference-2024-07-21-02-50-10-131')
-# inp = {"query": "Machine learning in healthcare"}
-#
-# # Convert the input data to JSON string
-# json_input = json.dumps(inp)
-#
-# # Make the prediction
-# response = predictor.predict(json_input)
-#
-# # response = predictor.predict(inp)
-# print(response)
+print(get_recommendations(query="what is chatGPT?"))

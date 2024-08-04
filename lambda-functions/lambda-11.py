@@ -33,6 +33,7 @@ def preprocess_data(df):
     """
     # Example preprocessing: Drop any rows with missing values
     df = df.dropna()
+    df = df.drop(columns=['id'])
     df = df.drop_duplicates()
     df['date'] = pd.to_datetime(df['date'], dayfirst=True)
     df['title'] = df['title'].apply(fix_titles)
@@ -84,7 +85,7 @@ def trigger_sagemaker_training(bucket, processed_key):
         HyperParameters = {
             'sagemaker_program': 'train.py',
             'sagemaker_requirement': 'requirements.txt',
-            'sagemaker_submit_directory': f's3://{bucket}/scripts/training_data.tar.gz'
+            'sagemaker_submit_directory': f's3://{bucket}/scripts/full_training_data.tar.gz'
         }
     )
     return response

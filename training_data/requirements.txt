@@ -6,5 +6,3 @@ faiss-cpu
 boto3
 langchain-community
 sentence-transformers
-streamlit
-sagemaker
