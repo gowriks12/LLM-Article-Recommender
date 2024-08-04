@@ -32,4 +32,8 @@ and deploys the endpoint on sagemaker
  - Delete endpoint and model on AWS console or using aws cli
 
 # Demo GIF
-![Logo](https://github.com/gowriks12//blob/develop/static/Demo-GIF-1.gif)
+![Logo](https://github.com/gowriks12/LLM-Article-Recommender/blob/main/static/Demo-GIF-1.gif)
+
+
+![Logo](https://github.com/gowriks12/LLM-Article-Recommender/blob/main/static/Demo-GIF-2.gif)
+
