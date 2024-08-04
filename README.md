@@ -4,7 +4,7 @@
 ## 2. Creating tar files
 - tar -cvzf training_data.tar.gz requirements.txt train.py
 - tar -cvzf inference.tar.gz inference.py requirements.txt
-Upload training_data.tar.gz and inference.tar.gz to S3 bucket llm-rec-sys-1901/scripts
+   Upload training_data.tar.gz and inference.tar.gz to S3 bucket llm-rec-sys-1901/scripts
 ## 3. Create a Lambda Function using the code in lambda-11.py
  - Use S3 bucket trigger
  - add pandas Layer
